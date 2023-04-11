@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 function Filter({ onFilter }) {
-    const [title, setTitle] = useState("");
+    const [title, setTitle] = useState(" ");
     const [rating, setRating] = useState("");
-    const [rate, setRate] = useState("rate");
+    
+
     const handleFilter = () => {
       onFilter({ title, rating });
     };
@@ -25,4 +26,4 @@ function Filter({ onFilter }) {
       </div>
     );
   }
-  export default Filter ( title, rate);
+  export default Filter;
