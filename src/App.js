@@ -6,18 +6,17 @@ import Filter from "./components/Filter ( title, rate)";
 const App = () => {
   const [movies, setMovies] = useState([
     {
-      title: "Ready Player One",
+      title: "Final Fantasy XV",
       description:
-        "In the year 2045, the real world is a harsh place. The only time Wade Watts (Tye Sheridan) truly feels alive is when he escapes to the OASIS, an immersive virtual universe where most of humanity spends their days",
-      posterURL:
-        "https://www.imdb.com/title/tt1677720/mediaviewer/rm2984408576/?ref_=tt_ov_i",
+        "Final Fantasy XV, annoncé originellement sous le titre Final Fantasy Versus XIII, est un jeu vidéo de la célèbre série Final Fantasy, développé et édité par Square Enix, sorti le 29 novembre 2016",
+      posterURL: "https://raw.githubusercontent.com/drminnaar/react-movie-cards/master/src/images/Kingsglaive_Final_Fantasy_XV.jpg",
       rating: 9.2,
     },
     {
-      title: "The Shawshank Redemption",
+      title: "Final Fantasy Spirits Within",
       description:
-        "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-      posterURL: "https://www.movieposter.com/posters/archive/main/15/A70-7847",
+        "C'est un film américano-japonais de Hironobu Sakaguchi (créateur de la série de jeux vidéo Final Fantasy) et Motonori Sakakibara, sorti le 15 août 2001. ",
+      posterURL: "https://raw.githubusercontent.com/drminnaar/react-movie-cards/master/src/images/Final_Fantasy_Spirits_Within.jpg",
       rating: 9.3,
     },
   ]);
