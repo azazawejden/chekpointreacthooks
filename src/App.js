@@ -1,61 +1,65 @@
-import React, { useState } from "react";
-
+import "./App.css";
+import SearchMovie from "./components/SearchMovie";
+import AddMovie from "./components/AddMovie";
 import MovieList from "./components/MovieList";
-import Filter from "./components/Filter ( title, rate)";
-
-const App = () => {
-  const [movies, setMovies] = useState([
-    {
-      title: "Final Fantasy XV",
-      description:
-        "Final Fantasy XV, annoncé originellement sous le titre Final Fantasy Versus XIII, est un jeu vidéo de la célèbre série Final Fantasy, développé et édité par Square Enix, sorti le 29 novembre 2016",
-      posterURL: "https://raw.githubusercontent.com/drminnaar/react-movie-cards/master/src/images/Kingsglaive_Final_Fantasy_XV.jpg",
-      rating: 9.2,
-    },
-    {
-      title: "Final Fantasy Spirits Within",
-      description:
-        "C'est un film américano-japonais de Hironobu Sakaguchi (créateur de la série de jeux vidéo Final Fantasy) et Motonori Sakakibara, sorti le 15 août 2001. ",
-      posterURL: "https://raw.githubusercontent.com/drminnaar/react-movie-cards/master/src/images/Final_Fantasy_Spirits_Within.jpg",
-      rating: 9.3,
-    },
-  ]);
-
-  const [handleTitleChange, sethandleTitleChange] = useState("");
-  const [handleRatingChange, sethandleRatingChange] = useState("");
-  const [titleFilter, setTitleFilter] = useState("");
-  const [ratingFilter, setRatingFilter] = useState(0);
-
-  const handleTitleFilterChange = (event) => {
-    setTitleFilter(event.target.value);
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { listmovie } from "./data";
+import { Route, Routes } from "react-router-dom";
+import MovieDetails from "./components/MovieDetails";
+function App() {
+  const [movies, setmovies] = useState(listmovie);
+  // add movies
+  const handleAdd = (newmovie) => {
+    // console.log(newmovie);
+    setmovies([{ ...newmovie, id: Math.random() }, ...movies]);
   };
-
-  const handleRatingFilterChange = (event) => {
-    setRatingFilter(Number(event.target.value));
+  // search by name
+  const [searchByName, setsearchByName] = useState("");
+  const handleName = (serchedvalue) => {
+    setsearchByName(serchedvalue);
   };
+  // search by Rate
+  const [rating, setRating] = useState(0);
 
-  const addMovie = (movie) => {
-    setMovies([...movies, movie]);
+  // Catch Rating value
+  const handleRating = (rate) => {
+    setRating(rate);
   };
-
-  const filteredMovies = movies.filter((movie) => {
-    return (
-      movie.title.toLowerCase().includes(titleFilter.toLowerCase()) &&
-      movie.rating >= ratingFilter
-    );
-  });
+  const handleReset = () => {
+    // Set the initial value
+    setRating(0);
+  };
   return (
-    <div className="app">
-      <h1>Movie App</h1>
-      <Filter
-        title={titleFilter}
-        rating={ratingFilter}
-        onTitleChange={handleTitleChange}
-        onRatingChange={handleRatingChange}
-      />
-      <MovieList movies={filteredMovies} />
+    <div className="App">
+      <Routes>
+        <Route path="/add" element={<AddMovie handleAdd={handleAdd} />} />
+        <Route
+          path="/"
+          element={
+            <div>
+              <SearchMovie
+                rating={rating}
+                handleReset={handleReset}
+                handleName={handleName}
+                handleRating={handleRating}
+              />
+
+              <MovieList
+                movies={movies.filter(
+                  (el) => el.name.includes(searchByName) && el.rating >= rating
+                )}
+              />
+            </div>
+          }
+        />
+        <Route
+          path="/details/:idmovie"
+          element={<MovieDetails movies={movies} />}
+        />
+      </Routes>
     </div>
   );
-};
+}
 
 export default App;
